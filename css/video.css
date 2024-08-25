@@ -1,0 +1,61 @@
+.Upload_container {
+    width: 300px;
+    padding: 30px;
+    border: 3px dashed #5c8af0;
+    border-radius: 15px;
+    background-color: #f8f9fa;
+    text-align: center;
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+}
+
+.Upload_container:hover {
+    background-color: #e9ecef;
+    border-color: #4a71c4;
+}
+
+.Upload_container a {
+    display: block;
+    font-size: 16px;
+    color: #495057;
+    margin-bottom: 10px;
+}
+
+.Upload_container form {
+    margin-top: 20px;
+}
+
+.Upload_container input[type='file'] {
+    display: none;
+}
+
+.Upload_container label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #5c8af0;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.Upload_container label:hover {
+    background-color: #4a71c4;
+}
+
+.Upload_container button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.Upload_container button:hover {
+    background-color: #218838;
+}

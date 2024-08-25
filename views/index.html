@@ -1,0 +1,29 @@
+{{ block "index" . }}
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="../css/styles.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@2.0.2"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="Upload_container">
+            <a> Select videos to upload </a>
+            <br>
+            <a> Or drag and drop video files </a>
+            <br>
+            <form id='form' hx-encoding='multipart/form-data' hx-post='/upload'>
+                <label for="file-input">Choose File</label>
+                <input id="file-input" type='file' name='file' accept="video/mp4" required>
+                <button>
+                    Upload
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+{{ end }}
