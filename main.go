@@ -2,13 +2,14 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"html/template"
 	"io"
 	"net/http"
+	"os"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	_ "github.com/mattn/go-sqlite3"
 )
 
 type Templates struct {
@@ -47,27 +48,33 @@ func handlePost(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	db, err := sql.Open("sqlite3", "database.db")
-	if err != nil {
-		fmt.Println("Error opening database:", err)
-	}
-	db.Exec("INSERT INTO videos (user, video_data) VALUES (?,?);", "emuslu", src)
-
-	defer src.Close()
-
-	/* Create a destination file
-	dst, err := os.Create("/home/emuslu/new.mp4")
+	db, err := sql.Open("sqlite3", "db/database.db")
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-	defer dst.Close()
+
+	//Create a destination file
+	dst, err := os.Create("/home/emuslu/" + file.Filename)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
 
 	// Copy the file content to the destination file
 	if _, err := io.Copy(dst, src); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
-	}*/
+	}
+	defer src.Close()
+	defer dst.Close()
 
-	return c.String(http.StatusOK, "File uploaded successfully")
+	db_res, err := db.Exec("INSERT INTO videos (user, video_path) VALUES (?,?);", "emuslu", dst.Name())
+	db.Close()
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	db_res.LastInsertId()
+
+	message := Message{Message: dst.Name()}
+	return c.Render(http.StatusOK, "video", message)
 }
 
 func main() {

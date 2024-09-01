@@ -12,7 +12,7 @@ func main() {
 	// Open the database connection
 	db, err := sql.Open("sqlite3", "database.db")
 	if err != nil {
-		fmt.Println("Error opening database:", err)
+		fmt.Println("Error opening databasee:", err)
 		return
 	}
 	defer db.Close()

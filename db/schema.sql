@@ -4,5 +4,5 @@ CREATE TABLE videos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     user TEXT,
-    video_data BINARY NOT NULL
+    video_path TEXT NOT NULL
     );
